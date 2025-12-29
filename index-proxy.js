@@ -4,9 +4,13 @@ const rlp = require("rlp"); // 引入 RLP 编解码库
 const keccak = require("keccak"); // 引入 Keccak 哈希库
 const wallet = require("ethereumjs-wallet"); // 引入以太坊钱包工具库
 
-const pattern = new RegExp("3333$"); // 匹配以"什么"结尾的地址
+// const pattern = new RegExp("3333$"); // 匹配以"什么"结尾的地址
 // const pattern = new RegExp("6666$"); // 匹配以"什么"结尾的地址
 // const pattern = new RegExp("8888$"); // 匹配以"什么"结尾的地址
+// const pattern = new RegExp("13931$"); // 匹配以"什么"结尾的地址
+// const pattern = new RegExp("9999$"); // 匹配以"什么"结尾的地址
+// const pattern = new RegExp("141319$"); // 匹配以"什么"结尾的地址
+const pattern = new RegExp("0000$"); // 匹配以"什么"结尾的地址
 let found = false; // 是否已找到目标结果的标记
 let runs = 0; // 运行计数器
 
