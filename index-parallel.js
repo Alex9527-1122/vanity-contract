@@ -4,9 +4,9 @@ const { Worker, isMainThread, parentPort, workerData } = require("worker_threads
 const os = require("os");
 
 // 配置参数 - 可以通过命令行参数或环境变量设置
-// 使用方式: PATTERN="ABCD$" WORKERS=8 node index-proxy-parallel.js
-// 或者: node index-proxy-parallel.js ABCD$ 8
-const PATTERN = process.argv[2] || process.env.PATTERN || "6666$"; // 匹配模式
+// 使用方式: PATTERN="ABCD$" WORKERS=8 node index-parallel.js
+// 或者: node index-parallel.js ABCD$ 8
+const PATTERN = process.argv[2] || process.env.PATTERN || "999999$"; // 匹配模式
 const NUM_WORKERS = parseInt(process.argv[3]) || parseInt(process.env.WORKERS) || os.cpus().length; // 工作线程数量
 const PROGRESS_INTERVAL = 1e5; // 每 100000 次输出一次进度
 const WORKER_REPORT_INTERVAL = 1e4; // worker 每 10000 次报告一次进度，以便主线程平滑输出
@@ -52,10 +52,9 @@ if (isMainThread) {
 					console.log("\n" + "=".repeat(60));
 					console.log("找到匹配的地址！");
 					console.log("=".repeat(60));
-					console.log(`contract_address (proxy): ${msg.contract_address}`);
+					console.log(`contract_address: ${msg.contract_address}`);
 					console.log(`sender address: ${msg.sender_address}`);
 					console.log(`privateKey: ${msg.privateKey}`);
-					console.log(`注意：这是第二个合约（代理合约）地址，需要先部署第一个合约（nonce=0x00）`);
 					console.log(`总运行次数: ${totalRuns.toLocaleString()}`);
 					console.log(`总耗时: ${((Date.now() - startTime) / 1000).toFixed(2)}s`);
 					console.log("=".repeat(60) + "\n");
@@ -116,7 +115,7 @@ if (isMainThread) {
 
 	while (!shouldStop) {
 		// 循环直到找到符合条件的地址
-		const nonce = 0x01; // 第二个合约（代理合约）使用 nonce=0x01
+		const nonce = 0x00; // 交易计数（必须是十六进制字面量）- 普通合约使用 nonce=0x00
 		const sender = wallet.generate();
 		const address = sender.getAddressString();
 
